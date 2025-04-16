@@ -1,5 +1,4 @@
-
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 export interface Material {
   name: string;
@@ -681,13 +680,16 @@ const generateSampleProducts = (): Product[] => {
   ];
 };
 
-export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface ProductProviderProps {
+  children: ((materials: Material[]) => ReactNode) | ReactNode;
+}
+
+export const ProductProvider: React.FC<ProductProviderProps> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const categories = ["All Products", "Home & Living", "Fashion", "Beauty", "Food & Beverages", "Electronics"];
 
   useEffect(() => {
-    // Initialize with sample products or load from localStorage
     const storedProducts = localStorage.getItem("products");
     if (storedProducts) {
       const parsedProducts = JSON.parse(storedProducts);
@@ -752,7 +754,6 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
     setFilteredProducts(products);
   };
 
-  // Calculate eco score based on materials
   const calculateEcoScore = (materials: Material[]): number => {
     if (materials.length === 0) return 0;
     
@@ -795,7 +796,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
         getProductById
       }}
     >
-      {children}
+      {typeof children === 'function' ? children(materialAnalysisData) : children}
     </ProductContext.Provider>
   );
 };

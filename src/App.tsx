@@ -40,8 +40,7 @@ const AppWithProviders = () => {
         <Sonner />
         <AuthProvider>
           <ProductProvider>
-            {/* Fixed TypeScript error by explicitly typing materials */}
-            {(materials: any) => (
+            {(materials) => (
               <ScannerProvider materials={materials}>
                 <CartProvider>
                   <BrowserRouter>
