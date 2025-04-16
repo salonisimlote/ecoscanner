@@ -35,14 +35,20 @@ const ProductCard = ({ product }: ProductCardProps) => {
     return "eco-score-low";
   };
 
+  // Use a fallback image if the product image is missing or invalid
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = "/placeholder.svg";
+  };
+
   return (
     <Card className="overflow-hidden h-full flex flex-col">
       <Link to={`/product/${product.id}`} className="flex-1 flex flex-col">
         <div className="relative">
           <img
-            src={product.image}
+            src={product.image || "/placeholder.svg"}
             alt={product.name}
             className="w-full aspect-square object-cover"
+            onError={handleImageError}
           />
           <div className="absolute top-2 right-2">
             <span className={`eco-score ${getEcoScoreClass(product.ecoScore)}`}>
