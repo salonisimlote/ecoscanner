@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { ProductProvider } from "./contexts/ProductContext";
+import { ScannerProvider } from "./contexts/ScannerContext";
 import { useEffect } from "react";
 import { initMockData } from "./utils/initMockData";
 import Layout from "./components/Layout";
@@ -39,47 +40,51 @@ const AppWithProviders = () => {
         <Sonner />
         <AuthProvider>
           <ProductProvider>
-            <CartProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Layout />}>
-                    <Route index element={<HomePage />} />
-                    <Route path="login" element={<LoginPage />} />
-                    <Route path="register" element={<RegisterPage />} />
-                    <Route path="product/:id" element={<ProductPage />} />
-                    <Route path="cart" element={<CartPage />} />
-                    <Route path="customer-care" element={<CustomerCarePage />} />
-                    <Route 
-                      path="checkout" 
-                      element={
-                        <ProtectedRoute>
-                          <CheckoutPage />
-                        </ProtectedRoute>
-                      } 
-                    />
-                    <Route 
-                      path="profile" 
-                      element={
-                        <ProtectedRoute>
-                          <ProfilePage />
-                        </ProtectedRoute>
-                      } 
-                    />
-                    <Route 
-                      path="seller-dashboard" 
-                      element={
-                        <ProtectedRoute requireRole="seller">
-                          <SellerDashboard />
-                        </ProtectedRoute>
-                      } 
-                    />
-                    <Route path="scanner" element={<ScannerPage />} />
-                    <Route path="scan-results" element={<ScanResultsPage />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Route>
-                </Routes>
-              </BrowserRouter>
-            </CartProvider>
+            {(materials) => (
+              <ScannerProvider materials={materials}>
+                <CartProvider>
+                  <BrowserRouter>
+                    <Routes>
+                      <Route path="/" element={<Layout />}>
+                        <Route index element={<HomePage />} />
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="register" element={<RegisterPage />} />
+                        <Route path="product/:id" element={<ProductPage />} />
+                        <Route path="cart" element={<CartPage />} />
+                        <Route path="customer-care" element={<CustomerCarePage />} />
+                        <Route 
+                          path="checkout" 
+                          element={
+                            <ProtectedRoute>
+                              <CheckoutPage />
+                            </ProtectedRoute>
+                          } 
+                        />
+                        <Route 
+                          path="profile" 
+                          element={
+                            <ProtectedRoute>
+                              <ProfilePage />
+                            </ProtectedRoute>
+                          } 
+                        />
+                        <Route 
+                          path="seller-dashboard" 
+                          element={
+                            <ProtectedRoute requireRole="seller">
+                              <SellerDashboard />
+                            </ProtectedRoute>
+                          } 
+                        />
+                        <Route path="scanner" element={<ScannerPage />} />
+                        <Route path="scan-results" element={<ScanResultsPage />} />
+                        <Route path="*" element={<NotFound />} />
+                      </Route>
+                    </Routes>
+                  </BrowserRouter>
+                </CartProvider>
+              </ScannerProvider>
+            )}
           </ProductProvider>
         </AuthProvider>
       </TooltipProvider>
