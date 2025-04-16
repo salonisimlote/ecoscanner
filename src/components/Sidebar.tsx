@@ -15,9 +15,9 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
 
   return (
     <aside 
-      className={`fixed top-0 left-0 z-30 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 md:relative md:translate-x-0 ${
+      className={`fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform transition-transform duration-200 ease-in-out ${
         isOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
+      } md:relative md:translate-x-0`}
     >
       <div className="flex flex-col h-full p-4">
         <div className="flex items-center justify-between mb-6">
@@ -26,9 +26,10 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
           </Link>
           <Button 
             variant="ghost" 
-            size="sm" 
-            className="md:hidden" 
+            size="sm"
             onClick={toggleSidebar}
+            className="md:hidden"
+            aria-label="Close sidebar"
           >
             <X className="h-5 w-5" />
           </Button>
