@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { signup, isAuthenticated } = useAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,6 +19,12 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState<"buyer" | "seller">("buyer");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect if already authenticated
+  if (isAuthenticated) {
+    navigate("/");
+    return null;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
