@@ -40,12 +40,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
     e.currentTarget.src = "/placeholder.svg";
   };
 
+  // Check if the image URL is valid, use placeholder if it's not
+  const imageSrc = product.image && product.image.trim() !== "" 
+    ? product.image 
+    : "/placeholder.svg";
+
   return (
     <Card className="overflow-hidden h-full flex flex-col">
       <Link to={`/product/${product.id}`} className="flex-1 flex flex-col">
         <div className="relative">
           <img
-            src={product.image || "/placeholder.svg"}
+            src={imageSrc}
             alt={product.name}
             className="w-full aspect-square object-cover"
             onError={handleImageError}

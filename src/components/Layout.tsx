@@ -8,11 +8,9 @@ const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
-  // Close sidebar by default when on homepage
+  // Close sidebar by default
   useEffect(() => {
-    if (location.pathname === "/") {
-      setSidebarOpen(false);
-    }
+    setSidebarOpen(false);
   }, [location.pathname]);
 
   const toggleSidebar = () => {
