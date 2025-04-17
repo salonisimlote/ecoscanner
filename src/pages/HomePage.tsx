@@ -2,10 +2,9 @@
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, ScanText } from "lucide-react";
+import { Search } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import { useProducts } from "@/contexts/ProductContext";
-import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const { 
@@ -35,19 +34,13 @@ const HomePage = () => {
 
   return (
     <div>
-      <div className="text-center mb-8">
+      <div className="text-center mb-10">
         <p className="text-sm text-primary mb-2">Sustainable Shopping Made Simple</p>
         <h1 className="text-3xl font-bold mb-4">Discover Eco-Friendly Products</h1>
-        <p className="text-gray-500 max-w-xl mx-auto mb-6">
+        <p className="text-gray-500 max-w-xl mx-auto">
           Find and compare sustainable products that match your values. Every purchase makes a 
           difference for our planet.
         </p>
-        <Button asChild className="mb-4">
-          <Link to="/scanner">
-            <ScanText className="mr-2 h-4 w-4" />
-            Scan Product Materials
-          </Link>
-        </Button>
       </div>
 
       <div className="mb-8 flex flex-wrap justify-center gap-2">

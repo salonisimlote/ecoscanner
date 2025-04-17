@@ -11,9 +11,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Camera, Check, AlertTriangle, ArrowLeft, Lightbulb, Leaf, Download, Home } from "lucide-react";
+import { Camera, Check, AlertTriangle, ArrowLeft, Lightbulb, Leaf } from "lucide-react";
 import { useScanner } from "@/contexts/ScannerContext";
-import { toast } from "sonner";
 
 const ScanResultsPage = () => {
   const navigate = useNavigate();
@@ -47,97 +46,16 @@ const ScanResultsPage = () => {
     return "bg-red-100";
   };
 
-  const handleDownloadReport = () => {
-    if (!scanResult) return;
-
-    try {
-      // Create report content
-      let reportContent = `
-ECOSCAN MATERIALS ANALYSIS REPORT
-=================================
-Scan Date: ${new Date(scanResult.scanDate).toLocaleDateString()}
-Overall Eco-Score: ${scanResult.ecoScore}/10
-Analysis Confidence: ${Math.round(scanResult.confidence * 100)}%
-
-DETECTED MATERIALS:
-`;
-
-      // Add each material
-      scanResult.materials.forEach(material => {
-        reportContent += `
-- ${material.name} (Eco-Score: ${material.ecoScore}/10)
-  Description: ${material.description}
-  Durability: ${material.durability}/10
-  Recyclability: ${material.recyclability}/10
-  Carbon Impact: ${material.carbonImpact}/10
-`;
-      });
-
-      // Add recommendations
-      reportContent += `
-SUSTAINABILITY RECOMMENDATIONS:
-`;
-      scanResult.recommendations.forEach((rec, index) => {
-        reportContent += `${index + 1}. ${rec}\n`;
-      });
-
-      // Add alternatives
-      if (scanResult.alternativeMaterials && scanResult.alternativeMaterials.length > 0) {
-        reportContent += `
-ECO-FRIENDLY ALTERNATIVES:
-`;
-        scanResult.alternativeMaterials.forEach((material, index) => {
-          reportContent += `${index + 1}. ${material.name} (Eco-Score: ${material.ecoScore}/10)\n   ${material.description}\n`;
-        });
-      }
-
-      // Create a Blob with the report content
-      const blob = new Blob([reportContent], { type: 'text/plain' });
-      
-      // Create a URL for the Blob
-      const url = URL.createObjectURL(blob);
-      
-      // Create a temporary link element
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `eco-scan-report-${new Date().toISOString().split('T')[0]}.txt`;
-      
-      // Trigger the download
-      document.body.appendChild(a);
-      a.click();
-      
-      // Clean up
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      toast.success("Report downloaded successfully");
-    } catch (error) {
-      console.error("Error downloading report:", error);
-      toast.error("Failed to download report");
-    }
-  };
-
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-2">
-          <Button variant="outline" size="sm" asChild>
-            <Link to="/scanner">
-              <ArrowLeft className="h-4 w-4 mr-1" />
-              Back
-            </Link>
-          </Button>
-          <Button variant="outline" size="sm" asChild>
-            <Link to="/">
-              <Home className="h-4 w-4 mr-1" />
-              Home
-            </Link>
-          </Button>
-        </div>
-        <Button variant="outline" size="sm" onClick={handleDownloadReport}>
-          <Download className="h-4 w-4 mr-1" />
-          Download Report
+      <div className="flex items-center mb-6">
+        <Button variant="ghost" size="sm" asChild className="mr-2">
+          <Link to="/scanner">
+            <ArrowLeft className="h-4 w-4 mr-1" />
+            Back to Scanner
+          </Link>
         </Button>
+        <h1 className="text-2xl font-bold">Material Analysis</h1>
       </div>
       
       <Card>

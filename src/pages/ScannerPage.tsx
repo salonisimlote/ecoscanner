@@ -1,6 +1,6 @@
 
 import { useState, useRef, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { 
   Card, 
   CardContent, 
@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Camera, Upload, ImageIcon, ScanText, ArrowLeft, Home } from "lucide-react";
+import { Camera, Upload, ImageIcon, ScanText } from "lucide-react";
 import { useScanner } from "@/contexts/ScannerContext";
 import { toast } from "sonner";
 
@@ -144,15 +144,7 @@ const ScannerPage = () => {
 
   return (
     <div className="max-w-md mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Material Scanner</h1>
-        <Button variant="outline" size="sm" asChild>
-          <Link to="/">
-            <Home className="h-4 w-4 mr-1" />
-            Home
-          </Link>
-        </Button>
-      </div>
+      <h1 className="text-2xl font-bold mb-6 text-center">Material Scanner</h1>
       
       <Card>
         <CardHeader>
