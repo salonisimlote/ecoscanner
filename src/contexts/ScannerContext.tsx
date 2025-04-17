@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { Material } from "./ProductContext";
 
 interface ScanResult {
@@ -26,6 +26,19 @@ export const ScannerProvider: React.FC<{
 }> = ({ children, materials }) => {
   const [isScanning, setIsScanning] = useState(false);
   const [scanResult, setScanResult] = useState<ScanResult | null>(null);
+  
+  // Load scan result from session storage
+  useEffect(() => {
+    const savedResult = sessionStorage.getItem('scanResult');
+    if (savedResult) {
+      try {
+        setScanResult(JSON.parse(savedResult));
+      } catch (error) {
+        console.error("Error parsing saved scan result:", error);
+        sessionStorage.removeItem('scanResult');
+      }
+    }
+  }, []);
 
   // Simulate material scanning from image
   const scanMaterials = async (image: File) => {
@@ -42,9 +55,21 @@ export const ScannerProvider: React.FC<{
       // Simulate OCR and material detection (in a real app, this would use actual OCR)
       await new Promise((resolve) => setTimeout(resolve, 2000));
       
-      // Randomly select 1-3 materials from our database to simulate detection
-      const detectedMaterialCount = Math.floor(Math.random() * 3) + 1;
-      const shuffledMaterials = [...materials].sort(() => 0.5 - Math.random());
+      // Choose materials that are likely to be found in products
+      const materialCategories = ["Natural", "Synthetic", "Recycled", "Biodegradable"];
+      const selectedCategory = materialCategories[Math.floor(Math.random() * materialCategories.length)];
+      
+      // Filter materials by the selected category preference (simulate intelligent detection)
+      const categoryMaterials = materials.filter(material => 
+        material.description.toLowerCase().includes(selectedCategory.toLowerCase())
+      );
+      
+      // If no materials found in the category, use a random selection
+      const materialsPool = categoryMaterials.length > 0 ? categoryMaterials : materials;
+      
+      // Randomly select 1-3 materials from our filtered list to simulate detection
+      const detectedMaterialCount = Math.floor(Math.random() * 2) + 1; // 1-2 materials
+      const shuffledMaterials = [...materialsPool].sort(() => 0.5 - Math.random());
       const detectedMaterials = shuffledMaterials.slice(0, detectedMaterialCount);
       
       // Calculate overall eco score
@@ -61,6 +86,9 @@ export const ScannerProvider: React.FC<{
       };
       
       setScanResult(result);
+      
+      // Save to session storage for persistence
+      sessionStorage.setItem('scanResult', JSON.stringify(result));
     } catch (error) {
       console.error("Error scanning materials:", error);
       // Handle error
@@ -73,7 +101,7 @@ export const ScannerProvider: React.FC<{
   const analyzeMaterials = async (materialNames: string[]): Promise<ScanResult> => {
     // Find materials from our database
     const foundMaterials = materialNames
-      .map(name => materials.find(m => m.name === name))
+      .map(name => materials.find(m => m.name.toLowerCase() === name.toLowerCase()))
       .filter((m): m is Material => m !== undefined);
     
     if (foundMaterials.length === 0) {
@@ -93,11 +121,15 @@ export const ScannerProvider: React.FC<{
       confidence: 1.0, // 100% confidence for manual entry
     };
     
+    // Save to session storage
+    sessionStorage.setItem('scanResult', JSON.stringify(result));
+    
     return result;
   };
 
   const resetScan = () => {
     setScanResult(null);
+    sessionStorage.removeItem('scanResult');
   };
 
   return (

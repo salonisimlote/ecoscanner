@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,13 @@ import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { Product } from "@/contexts/ProductContext";
 import { toast } from "sonner";
+
+const productImages = [
+  "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png", // Bamboo products
+  "/lovable-uploads/6c5e88ad-caba-4d39-8d51-68393ff28a39.png", // Cotton bag
+  "/lovable-uploads/b90fe92b-3ab9-4598-b293-fb0ff04638fd.png", // Bamboo toothbrush
+  "/lovable-uploads/ef8d3787-fac3-48f1-ab62-801ef67e6301.png", // Natural soap
+];
 
 interface ProductCardProps {
   product: Product;
@@ -35,22 +41,29 @@ const ProductCard = ({ product }: ProductCardProps) => {
     return "eco-score-low";
   };
 
-  // Use a fallback image if the product image is missing or invalid
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.src = "/placeholder.svg";
+  const getProductImage = (id: string) => {
+    const idSum = id.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+    const imageIndex = idSum % productImages.length;
+    return productImages[imageIndex];
   };
 
-  // Check if the image URL is valid, use placeholder if it's not
-  const imageSrc = product.image && product.image.trim() !== "" 
-    ? product.image 
-    : "/placeholder.svg";
+  const getImageSrc = () => {
+    if (product.image && product.image.trim() !== "" && !product.image.includes("placeholder")) {
+      return product.image;
+    }
+    return getProductImage(product.id);
+  };
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = getProductImage(product.id);
+  };
 
   return (
     <Card className="overflow-hidden h-full flex flex-col">
       <Link to={`/product/${product.id}`} className="flex-1 flex flex-col">
         <div className="relative">
           <img
-            src={imageSrc}
+            src={getImageSrc()}
             alt={product.name}
             className="w-full aspect-square object-cover"
             onError={handleImageError}

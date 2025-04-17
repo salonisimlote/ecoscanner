@@ -4,7 +4,6 @@ import { Camera, ShoppingCart, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
-import { useLocation } from "react-router-dom";
 
 interface NavbarProps {
   toggleSidebar: () => void;
@@ -13,8 +12,6 @@ interface NavbarProps {
 const Navbar = ({ toggleSidebar }: NavbarProps) => {
   const { totalItems } = useCart();
   const { isAuthenticated } = useAuth();
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
 
   return (
     <header className="bg-white shadow-sm py-4 px-6">
@@ -24,7 +21,7 @@ const Navbar = ({ toggleSidebar }: NavbarProps) => {
             variant="ghost"
             size="icon"
             onClick={toggleSidebar}
-            className={isHomePage ? "mr-2" : "mr-2 md:hidden"}
+            className="mr-2"
             aria-label="Toggle sidebar"
           >
             <Menu className="h-5 w-5" />
