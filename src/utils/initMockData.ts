@@ -19,8 +19,43 @@ export const initMockData = () => {
     },
     {
       id: "user_2",
-      name: "Demo Seller",
-      email: "seller@example.com",
+      name: "EcoLife Solutions",
+      email: "ecolife@example.com",
+      password: "password123",
+      role: "seller"
+    },
+    {
+      id: "user_3",
+      name: "Zero Waste Home",
+      email: "zerowaste@example.com",
+      password: "password123",
+      role: "seller"
+    },
+    {
+      id: "user_4",
+      name: "Pure Beauty",
+      email: "purebeauty@example.com",
+      password: "password123",
+      role: "seller"
+    },
+    {
+      id: "user_5",
+      name: "EcoWear",
+      email: "ecowear@example.com",
+      password: "password123",
+      role: "seller"
+    },
+    {
+      id: "user_6",
+      name: "Nature's Pantry",
+      email: "naturespantry@example.com",
+      password: "password123",
+      role: "seller"
+    },
+    {
+      id: "user_7",
+      name: "Green Tech",
+      email: "greentech@example.com",
       password: "password123",
       role: "seller"
     }
