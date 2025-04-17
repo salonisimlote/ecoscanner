@@ -34,10 +34,10 @@ const HomePage = () => {
 
   return (
     <div>
-      <div className="text-center mb-10">
+      <div className="text-center mb-8">
         <p className="text-sm text-primary mb-2">Sustainable Shopping Made Simple</p>
         <h1 className="text-3xl font-bold mb-4">Discover Eco-Friendly Products</h1>
-        <p className="text-gray-500 max-w-xl mx-auto">
+        <p className="text-gray-500 max-w-xl mx-auto mb-6">
           Find and compare sustainable products that match your values. Every purchase makes a 
           difference for our planet.
         </p>

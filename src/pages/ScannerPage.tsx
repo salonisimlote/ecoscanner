@@ -1,5 +1,6 @@
+
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { 
   Card, 
   CardContent, 
@@ -11,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Camera, Upload, ImageIcon, ScanText } from "lucide-react";
+import { Camera, Upload, ImageIcon, ScanText, ArrowLeft, Home } from "lucide-react";
 import { useScanner } from "@/contexts/ScannerContext";
 import { toast } from "sonner";
 
@@ -143,7 +144,15 @@ const ScannerPage = () => {
 
   return (
     <div className="max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-6 text-center">Material Scanner</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold">Material Scanner</h1>
+        <Button variant="outline" size="sm" asChild>
+          <Link to="/">
+            <Home className="h-4 w-4 mr-1" />
+            Home
+          </Link>
+        </Button>
+      </div>
       
       <Card>
         <CardHeader>
@@ -228,7 +237,7 @@ const ScannerPage = () => {
             disabled={!file || isScanning}
           >
             <ScanText className="h-4 w-4" />
-            {isScanning ? "Scanning..." : "Scan Materials"}
+            {isScanning ? "Analyzing Materials..." : "Analyze Materials"}
           </Button>
         </CardContent>
         <CardFooter className="bg-accent/40 text-sm text-gray-600 rounded-b-lg flex flex-col items-start">

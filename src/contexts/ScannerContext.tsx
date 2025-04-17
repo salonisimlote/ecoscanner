@@ -8,6 +8,8 @@ interface ScanResult {
   image: string;
   scanDate: string;
   confidence: number;
+  recommendations: string[];
+  alternativeMaterials: Material[];
 }
 
 interface ScannerContextType {
@@ -39,6 +41,69 @@ export const ScannerProvider: React.FC<{
       }
     }
   }, []);
+
+  // Generate recommendations based on detected materials
+  const generateRecommendations = (detectedMaterials: Material[]): string[] => {
+    const recommendations: string[] = [];
+    
+    // Check average eco score
+    const avgScore = detectedMaterials.reduce((sum, mat) => sum + mat.ecoScore, 0) / detectedMaterials.length;
+    
+    if (avgScore < 5) {
+      recommendations.push("Consider products made with more sustainable materials for your next purchase.");
+    }
+    
+    // Check for specific materials
+    detectedMaterials.forEach(material => {
+      if (material.name === "Conventional Cotton") {
+        recommendations.push("Organic cotton uses 91% less water and no harmful pesticides compared to conventional cotton.");
+      }
+      
+      if (material.name === "Virgin Polyester" || material.name === "Plastic") {
+        recommendations.push("Recycled polyester has a 75% lower carbon footprint than virgin polyester.");
+      }
+      
+      if (material.recyclability < 5) {
+        recommendations.push(`${material.name} has low recyclability. Consider looking for alternatives that are easier to recycle.`);
+      }
+    });
+    
+    // Add generic recommendations if we don't have many specific ones
+    if (recommendations.length < 2) {
+      recommendations.push("Look for third-party certifications like Global Organic Textile Standard (GOTS) or Cradle to Cradle.");
+      recommendations.push("Products with fewer materials are generally easier to recycle at end-of-life.");
+    }
+    
+    return recommendations;
+  };
+  
+  // Find alternative materials with better eco scores
+  const findAlternativeMaterials = (detectedMaterials: Material[]): Material[] => {
+    const alternatives: Material[] = [];
+    
+    detectedMaterials.forEach(material => {
+      // Find potential alternatives for this material
+      let betterAlternatives = materials.filter(m => 
+        m.ecoScore > material.ecoScore && 
+        m.ecoScore >= 7 && 
+        m !== material
+      );
+      
+      // Sort by eco score (highest first)
+      betterAlternatives.sort((a, b) => b.ecoScore - a.ecoScore);
+      
+      // Take the top alternative if it exists
+      if (betterAlternatives.length > 0) {
+        const bestAlternative = betterAlternatives[0];
+        if (!alternatives.includes(bestAlternative)) {
+          alternatives.push(bestAlternative);
+        }
+      }
+    });
+    
+    // Limit to 3 alternatives
+    return alternatives.slice(0, 3);
+  };
 
   // Simulate material scanning from image
   const scanMaterials = async (image: File) => {
@@ -76,6 +141,10 @@ export const ScannerProvider: React.FC<{
       const totalScore = detectedMaterials.reduce((sum, mat) => sum + mat.ecoScore, 0);
       const averageScore = Math.round(totalScore / detectedMaterials.length);
       
+      // Generate recommendations and alternatives
+      const recommendations = generateRecommendations(detectedMaterials);
+      const alternativeMaterials = findAlternativeMaterials(detectedMaterials);
+      
       // Create scan result
       const result: ScanResult = {
         materials: detectedMaterials,
@@ -83,6 +152,8 @@ export const ScannerProvider: React.FC<{
         image: imageUrl,
         scanDate: new Date().toISOString(),
         confidence: Math.random() * 0.3 + 0.7, // Random confidence between 70-100%
+        recommendations,
+        alternativeMaterials
       };
       
       setScanResult(result);
@@ -112,6 +183,10 @@ export const ScannerProvider: React.FC<{
     const totalScore = foundMaterials.reduce((sum, mat) => sum + mat.ecoScore, 0);
     const averageScore = Math.round(totalScore / foundMaterials.length);
     
+    // Generate recommendations and alternatives
+    const recommendations = generateRecommendations(foundMaterials);
+    const alternativeMaterials = findAlternativeMaterials(foundMaterials);
+    
     // Create scan result
     const result: ScanResult = {
       materials: foundMaterials,
@@ -119,6 +194,8 @@ export const ScannerProvider: React.FC<{
       image: "",
       scanDate: new Date().toISOString(),
       confidence: 1.0, // 100% confidence for manual entry
+      recommendations,
+      alternativeMaterials
     };
     
     // Save to session storage
