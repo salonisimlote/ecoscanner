@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
@@ -228,7 +229,7 @@ const ScannerPage = () => {
             disabled={!file || isScanning}
           >
             <ScanText className="h-4 w-4" />
-            {isScanning ? "Scanning..." : "Scan Materials"}
+            {isScanning ? "Analyzing Materials..." : "Analyze Materials"}
           </Button>
         </CardContent>
         <CardFooter className="bg-accent/40 text-sm text-gray-600 rounded-b-lg flex flex-col items-start">

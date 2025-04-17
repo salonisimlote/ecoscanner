@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Camera, Check, AlertTriangle, ArrowLeft } from "lucide-react";
+import { Camera, Check, AlertTriangle, ArrowLeft, Lightbulb, Leaf } from "lucide-react";
 import { useScanner } from "@/contexts/ScannerContext";
 
 const ScanResultsPage = () => {
@@ -26,9 +26,9 @@ const ScanResultsPage = () => {
     
     // Cleanup on unmount
     return () => {
-      resetScan();
+      // We don't reset scan here anymore so results persist
     };
-  }, [scanResult, navigate, resetScan]);
+  }, [scanResult, navigate]);
 
   if (!scanResult) {
     return null;
@@ -55,14 +55,14 @@ const ScanResultsPage = () => {
             Back to Scanner
           </Link>
         </Button>
-        <h1 className="text-2xl font-bold">Scan Results</h1>
+        <h1 className="text-2xl font-bold">Material Analysis</h1>
       </div>
       
       <Card>
         <CardHeader>
-          <CardTitle>Material Analysis</CardTitle>
+          <CardTitle>Eco-Friendly Assessment</CardTitle>
           <CardDescription>
-            Results from scanning your product materials
+            Detailed analysis of your product's materials
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -76,7 +76,9 @@ const ScanResultsPage = () => {
               <div className="ml-4">
                 <h3 className="font-semibold text-lg">Eco-Score</h3>
                 <p className="text-sm text-gray-500">
-                  Based on detected materials
+                  {scanResult.ecoScore >= 7 ? "Excellent sustainability rating" : 
+                   scanResult.ecoScore >= 5 ? "Good sustainability rating" : 
+                   "Needs improvement"}
                 </p>
               </div>
             </div>
@@ -139,6 +141,47 @@ const ScanResultsPage = () => {
             )}
           </div>
           
+          {scanResult.recommendations && scanResult.recommendations.length > 0 && (
+            <div className="border rounded-md p-4 bg-blue-50">
+              <div className="flex items-center mb-3">
+                <Lightbulb className="h-5 w-5 text-blue-600 mr-2" />
+                <h3 className="font-semibold">Sustainability Recommendations</h3>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-700">
+                {scanResult.recommendations.map((rec, index) => (
+                  <li key={index} className="flex">
+                    <span className="text-blue-600 mr-2">•</span>
+                    <span>{rec}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          {scanResult.alternativeMaterials && scanResult.alternativeMaterials.length > 0 && (
+            <div className="border rounded-md p-4 bg-green-50">
+              <div className="flex items-center mb-3">
+                <Leaf className="h-5 w-5 text-green-600 mr-2" />
+                <h3 className="font-semibold">Eco-Friendly Alternatives</h3>
+              </div>
+              <div className="space-y-3">
+                {scanResult.alternativeMaterials.map((material) => (
+                  <div key={material.name} className="flex items-start">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${getEcoScoreBg(material.ecoScore)} mr-3 flex-shrink-0`}>
+                      <span className={`text-xs font-bold ${getEcoScoreClass(material.ecoScore)}`}>
+                        {material.ecoScore}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="font-medium">{material.name}</p>
+                      <p className="text-xs text-gray-600">{material.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
           <div className="flex items-center p-4 bg-gray-50 rounded-md">
             <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center mr-3">
               <Check className="h-4 w-4 text-gray-700" />
@@ -159,7 +202,7 @@ const ScanResultsPage = () => {
             </Link>
           </Button>
           <Button asChild>
-            <Link to="/">View Eco Products</Link>
+            <Link to="/">Browse Eco Products</Link>
           </Button>
         </CardFooter>
       </Card>
