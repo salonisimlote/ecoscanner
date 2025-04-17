@@ -210,28 +210,19 @@ const materialAnalysisData: Material[] = [
     durability: 10,
     carbonImpact: 6,
     description: "Extremely durable and fully recyclable, reducing the need for replacement items."
-  },
-  {
-    name: "Glass",
-    ecoScore: 6,
-    recyclability: 9,
-    durability: 8,
-    carbonImpact: 5,
-    description: "Infinitely recyclable with no quality loss, but energy-intensive to produce."
   }
 ];
 
-// Sample product data with the new products
+// Sample product data
 const generateSampleProducts = (): Product[] => {
   return [
-    // ♻️ Reusable & Sustainable Household Items
     {
       id: "p1",
       name: "Bamboo Toothbrushes",
       description: "Biodegradable handles, zero plastic, gentle on gums and effective for cleaning.",
-      price: 199.00,
+      price: 299.00,
       image: "/lovable-uploads/b90fe92b-3ab9-4598-b293-fb0ff04638fd.png",
-      category: "Reusable & Sustainable Household Items",
+      category: "Household Items",
       materials: [materialAnalysisData.find(m => m.name === "Bamboo")!],
       ecoScore: 9,
       seller: {
@@ -253,13 +244,13 @@ const generateSampleProducts = (): Product[] => {
       id: "p2",
       name: "Reusable Beeswax Food Wraps",
       description: "A natural alternative to plastic wrap. Washable, reusable, and biodegradable.",
-      price: 349.99,
+      price: 549.99,
       image: "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png",
-      category: "Reusable & Sustainable Household Items",
+      category: "Household Items",
       materials: [materialAnalysisData.find(m => m.name === "Beeswax")!],
       ecoScore: 9,
       seller: {
-        id: "s2",
+        id: "s4",
         name: "Zero Waste Home"
       },
       reviews: [
@@ -277,9 +268,9 @@ const generateSampleProducts = (): Product[] => {
       id: "p3",
       name: "Silicone Food Storage Bags",
       description: "Durable and reusable bags for food storage. Dishwasher-safe and leak-proof.",
-      price: 449.99,
+      price: 649.99,
       image: "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png",
-      category: "Reusable & Sustainable Household Items",
+      category: "Household Items",
       materials: [materialAnalysisData.find(m => m.name === "Silicone")!],
       ecoScore: 7,
       seller: {
@@ -301,13 +292,13 @@ const generateSampleProducts = (): Product[] => {
       id: "p4",
       name: "Compostable Trash Bags",
       description: "Break down naturally in composting conditions. Made from plant-based materials.",
-      price: 299.99,
+      price: 399.99,
       image: "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png",
-      category: "Reusable & Sustainable Household Items",
+      category: "Household Items",
       materials: [materialAnalysisData.find(m => m.name === "Plant-based Compostable Materials")!],
       ecoScore: 8,
       seller: {
-        id: "s2",
+        id: "s4",
         name: "Zero Waste Home"
       },
       reviews: [
@@ -325,9 +316,9 @@ const generateSampleProducts = (): Product[] => {
       id: "p5",
       name: "Wool Dryer Balls",
       description: "Reduce drying time and eliminate the need for dryer sheets. Reusable for 1000+ loads.",
-      price: 399.99,
+      price: 449.99,
       image: "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png",
-      category: "Reusable & Sustainable Household Items",
+      category: "Household Items",
       materials: [materialAnalysisData.find(m => m.name === "Wool")!],
       ecoScore: 8,
       seller: {
@@ -346,14 +337,13 @@ const generateSampleProducts = (): Product[] => {
       ]
     },
     
-    // 🧴 Eco-Friendly Personal Care
     {
       id: "p6",
       name: "Solid Shampoo & Conditioner Bars",
       description: "Plastic-free, travel-friendly hair care. One bar equals 2-3 bottles of liquid product.",
       price: 349.99,
       image: "/lovable-uploads/ef8d3787-fac3-48f1-ab62-801ef67e6301.png",
-      category: "Eco-Friendly Personal Care",
+      category: "Personal Care",
       materials: [materialAnalysisData.find(m => m.name === "Plant-based Compostable Materials")!],
       ecoScore: 9,
       seller: {
@@ -375,9 +365,9 @@ const generateSampleProducts = (): Product[] => {
       id: "p7",
       name: "Natural Deodorant in Compostable Packaging",
       description: "Free from harmful chemicals, aluminum-free and in zero-waste packaging.",
-      price: 249.99,
+      price: 299.99,
       image: "/lovable-uploads/ef8d3787-fac3-48f1-ab62-801ef67e6301.png",
-      category: "Eco-Friendly Personal Care",
+      category: "Personal Care",
       materials: [
         materialAnalysisData.find(m => m.name === "Plant-based Compostable Materials")!,
         materialAnalysisData.find(m => m.name === "Recycled Paper")!
@@ -402,16 +392,16 @@ const generateSampleProducts = (): Product[] => {
       id: "p8",
       name: "Refillable Bamboo Razor",
       description: "Replaceable blades, zero waste handle, and close shave with minimal environmental impact.",
-      price: 599.99,
+      price: 899.99,
       image: "/lovable-uploads/b90fe92b-3ab9-4598-b293-fb0ff04638fd.png",
-      category: "Eco-Friendly Personal Care",
+      category: "Personal Care",
       materials: [
         materialAnalysisData.find(m => m.name === "Bamboo")!,
         materialAnalysisData.find(m => m.name === "Stainless Steel")!
       ],
       ecoScore: 8,
       seller: {
-        id: "s2",
+        id: "s4",
         name: "Zero Waste Home"
       },
       reviews: [
@@ -429,9 +419,9 @@ const generateSampleProducts = (): Product[] => {
       id: "p9",
       name: "Organic Cotton Reusable Makeup Pads",
       description: "Washable and gentle on skin. Set of 10 pads with washing bag included.",
-      price: 299.99,
+      price: 399.99,
       image: "/lovable-uploads/6c5e88ad-caba-4d39-8d51-68393ff28a39.png",
-      category: "Eco-Friendly Personal Care",
+      category: "Personal Care",
       materials: [materialAnalysisData.find(m => m.name === "Organic Cotton")!],
       ecoScore: 8,
       seller: {
@@ -455,7 +445,7 @@ const generateSampleProducts = (): Product[] => {
       description: "Cruelty-free and compostable packaging. Natural ingredients that soothe and protect.",
       price: 149.99,
       image: "/lovable-uploads/ef8d3787-fac3-48f1-ab62-801ef67e6301.png",
-      category: "Eco-Friendly Personal Care",
+      category: "Personal Care",
       materials: [
         materialAnalysisData.find(m => m.name === "Plant-based Compostable Materials")!,
         materialAnalysisData.find(m => m.name === "Recycled Paper")!
@@ -477,12 +467,11 @@ const generateSampleProducts = (): Product[] => {
       ]
     },
     
-    // 🛒 Zero Waste Essentials
     {
       id: "p11",
       name: "Stainless Steel Straws with Cleaning Brush",
       description: "Durable and travel-ready. Set of 4 straws with cleaning brush and carry pouch.",
-      price: 249.99,
+      price: 349.99,
       image: "/lovable-uploads/ef8d3787-fac3-48f1-ab62-801ef67e6301.png",
       category: "Zero Waste Essentials",
       materials: [materialAnalysisData.find(m => m.name === "Stainless Steel")!],
@@ -506,13 +495,13 @@ const generateSampleProducts = (): Product[] => {
       id: "p12",
       name: "Eco-Friendly Tote Bags",
       description: "Made from organic cotton or recycled materials. Sturdy design for grocery shopping.",
-      price: 199.99,
+      price: 249.99,
       image: "/lovable-uploads/6c5e88ad-caba-4d39-8d51-68393ff28a39.png",
       category: "Zero Waste Essentials",
       materials: [materialAnalysisData.find(m => m.name === "Organic Cotton")!],
       ecoScore: 8,
       seller: {
-        id: "s4",
+        id: "s2",
         name: "EcoWear"
       },
       reviews: [
@@ -530,13 +519,13 @@ const generateSampleProducts = (): Product[] => {
       id: "p13",
       name: "Biodegradable Loofahs",
       description: "Great for kitchen or bathroom use. Naturally antibacterial and compostable.",
-      price: 149.99,
+      price: 199.99,
       image: "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png",
       category: "Zero Waste Essentials",
       materials: [materialAnalysisData.find(m => m.name === "Plant-based Compostable Materials")!],
       ecoScore: 9,
       seller: {
-        id: "s2",
+        id: "s4",
         name: "Zero Waste Home"
       },
       reviews: [
@@ -554,7 +543,7 @@ const generateSampleProducts = (): Product[] => {
       id: "p14",
       name: "Reusable Produce Bags",
       description: "For fruits, veggies, and bulk shopping. Set of 5 bags in different sizes.",
-      price: 249.99,
+      price: 349.99,
       image: "/lovable-uploads/6c5e88ad-caba-4d39-8d51-68393ff28a39.png",
       category: "Zero Waste Essentials",
       materials: [materialAnalysisData.find(m => m.name === "Organic Cotton")!],
@@ -578,7 +567,7 @@ const generateSampleProducts = (): Product[] => {
       id: "p15",
       name: "Stainless Steel Water Bottle",
       description: "Long-lasting alternative to plastic. Double-wall insulation keeps drinks hot or cold.",
-      price: 699.99,
+      price: 899.99,
       image: "/lovable-uploads/ef8d3787-fac3-48f1-ab62-801ef67e6301.png",
       category: "Zero Waste Essentials",
       materials: [materialAnalysisData.find(m => m.name === "Stainless Steel")!],
@@ -599,14 +588,13 @@ const generateSampleProducts = (): Product[] => {
       ]
     },
     
-    // 🌱 Sustainable Living & Gardening
     {
       id: "p16",
       name: "Plantable Seed Pencils",
       description: "Write, then grow into herbs or flowers. Pack of 5 pencils with different seed varieties.",
-      price: 249.99,
+      price: 299.99,
       image: "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png",
-      category: "Sustainable Living & Gardening",
+      category: "Sustainable Living",
       materials: [
         materialAnalysisData.find(m => m.name === "Recycled Paper")!,
         materialAnalysisData.find(m => m.name === "Plant-based Compostable Materials")!
@@ -631,9 +619,9 @@ const generateSampleProducts = (): Product[] => {
       id: "p17",
       name: "Home Composting Bin",
       description: "Compact and odor-controlled for indoor use. Includes charcoal filter and instructions.",
-      price: 1199.99,
+      price: 1499.99,
       image: "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png",
-      category: "Sustainable Living & Gardening",
+      category: "Sustainable Living",
       materials: [
         materialAnalysisData.find(m => m.name === "Stainless Steel")!,
         materialAnalysisData.find(m => m.name === "Bamboo")!
@@ -658,13 +646,13 @@ const generateSampleProducts = (): Product[] => {
       id: "p18",
       name: "Recycled Plastic Planters",
       description: "Eco-friendly planters made from recycled plastic. Set of 3 in different sizes.",
-      price: 499.99,
+      price: 649.99,
       image: "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png",
-      category: "Sustainable Living & Gardening",
+      category: "Sustainable Living",
       materials: [materialAnalysisData.find(m => m.name === "Recycled Polyester")!],
       ecoScore: 7,
       seller: {
-        id: "s2",
+        id: "s4",
         name: "Zero Waste Home"
       },
       reviews: [
@@ -682,9 +670,9 @@ const generateSampleProducts = (): Product[] => {
       id: "p19",
       name: "Solar-Powered Garden Lights",
       description: "Energy-saving outdoor lighting. Set of 4 pathway lights with warm white LEDs.",
-      price: 799.99,
+      price: 999.99,
       image: "/lovable-uploads/ef8d3787-fac3-48f1-ab62-801ef67e6301.png",
-      category: "Sustainable Living & Gardening",
+      category: "Sustainable Living",
       materials: [
         materialAnalysisData.find(m => m.name === "Recycled Polyester")!,
         materialAnalysisData.find(m => m.name === "Stainless Steel")!
@@ -709,9 +697,9 @@ const generateSampleProducts = (): Product[] => {
       id: "p20",
       name: "Organic Seed Kits",
       description: "For growing herbs, veggies, or pollinator plants. Includes seeds, soil, and biodegradable pots.",
-      price: 399.99,
+      price: 499.99,
       image: "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png",
-      category: "Sustainable Living & Gardening",
+      category: "Sustainable Living",
       materials: [
         materialAnalysisData.find(m => m.name === "Plant-based Compostable Materials")!,
         materialAnalysisData.find(m => m.name === "Recycled Paper")!
@@ -742,19 +730,20 @@ interface ProductProviderProps {
 export const ProductProvider: React.FC<ProductProviderProps> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const categories = [
-    "All Products", 
-    "Reusable & Sustainable Household Items", 
-    "Eco-Friendly Personal Care", 
-    "Zero Waste Essentials", 
-    "Sustainable Living & Gardening"
-  ];
+  const categories = ["All Products", "Household Items", "Personal Care", "Zero Waste Essentials", "Sustainable Living"];
 
   useEffect(() => {
-    const sampleProducts = generateSampleProducts();
-    setProducts(sampleProducts);
-    setFilteredProducts(sampleProducts);
-    localStorage.setItem("products", JSON.stringify(sampleProducts));
+    const storedProducts = localStorage.getItem("products");
+    if (storedProducts) {
+      const parsedProducts = JSON.parse(storedProducts);
+      setProducts(parsedProducts);
+      setFilteredProducts(parsedProducts);
+    } else {
+      const sampleProducts = generateSampleProducts();
+      setProducts(sampleProducts);
+      setFilteredProducts(sampleProducts);
+      localStorage.setItem("products", JSON.stringify(sampleProducts));
+    }
   }, []);
 
   const filterByCategory = (category: string) => {
