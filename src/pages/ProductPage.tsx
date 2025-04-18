@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,13 +8,6 @@ import { useProducts } from "@/contexts/ProductContext";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import { Product } from "@/types/product";
-
-const productImages = [
-  "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png", // Bamboo products
-  "/lovable-uploads/6c5e88ad-caba-4d39-8d51-68393ff28a39.png", // Cotton bag
-  "/lovable-uploads/b90fe92b-3ab9-4598-b293-fb0ff04638fd.png", // Bamboo toothbrush
-  "/lovable-uploads/ef8d3787-fac3-48f1-ab62-801ef67e6301.png", // Natural soap
-];
 
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -60,22 +54,8 @@ const ProductPage = () => {
     return "eco-score-low";
   };
 
-  const getProductImage = (id: string) => {
-    const idSum = id.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
-    const imageIndex = idSum % productImages.length;
-    return productImages[imageIndex];
-  };
-
-  const getImageSrc = () => {
-    if (product.image && product.image.trim() !== "" && !product.image.includes("placeholder")) {
-      return product.image;
-    }
-    
-    return getProductImage(product.id);
-  };
-
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.src = getProductImage(product.id);
+    e.currentTarget.src = "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09"; // Default fallback image
   };
 
   return (
@@ -83,7 +63,7 @@ const ProductPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <img
-            src={getImageSrc()}
+            src={product.image}
             alt={product.name}
             className="w-full rounded-lg aspect-square object-cover"
             onError={handleImageError}
