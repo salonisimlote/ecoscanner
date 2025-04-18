@@ -1,9 +1,11 @@
+
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
-import { Product } from "@/contexts/ProductContext";
+import { Product } from "@/types/product";
+import { useProducts } from "@/contexts/ProductContext";
 import { toast } from "sonner";
 
 const productImages = [

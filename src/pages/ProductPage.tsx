@@ -6,7 +6,7 @@ import { ShoppingCart, Star } from "lucide-react";
 import { useProducts } from "@/contexts/ProductContext";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
-import { Product } from "@/contexts/ProductContext";
+import { Product } from "@/types/product";
 
 const productImages = [
   "/lovable-uploads/48e78506-b064-4bf0-bbc4-4706ef97cab0.png", // Bamboo products

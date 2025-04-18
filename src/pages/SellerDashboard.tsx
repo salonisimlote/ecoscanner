@@ -21,7 +21,8 @@ import {
 } from "@/components/ui/select";
 import { AlertCircle, Plus } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useProducts, Material } from "@/contexts/ProductContext";
+import { useProducts } from "@/contexts/ProductContext";
+import { Material } from "@/types/product";
 import { useScanner } from "@/contexts/ScannerContext";
 import { toast } from "sonner";
 
